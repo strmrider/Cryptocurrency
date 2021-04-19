@@ -33,57 +33,34 @@ mine_initial_txs(prev_hash, recipients)
 ```
 #### API
 While the system manages all the process automatically, users can use the API as they wish.
-* **``create_genesis()``**
-
-  Generates a Genesis Block
-
-* **``add_block(block)``**
-
-  Adds new block (Block instance) to the chain
-
-*  **``verify_chain(new_block=None)``**
-
-  Verifies the block chain. Also verifies with a new block if provided
-  
-*  **``get_block(index)``**
- 
-  Returns block by index
- 
-*  **``get_last()``**
-
-  Returns last block
-
-*  **``get_last_index()``**
-
-  Returns last index
-  
-*  **``get_last_hash()``**
-
-  Returns last hash value
-  
-*  **``fetch_all_tx()``**
-
-  Returns all transactions from the blocks in a list
-  
-*  **``copy()``**
-
-  Returns a copy of the block chain
- 
-*  **``serialize()``**
-
-  Returns blockchain in bytes
-  
-*  **``json()``**
-
-  Returns blockchain in JSON format
-
-*  **``iter()``**
-
-  Returns chain's iterator
- 
-*  **``len()``**
-
-  Returns the size of the chain
+```Python
+# Generates a Genesis Block
+chain.create_genesis()
+# Adds new block (Block instance) to the chain
+chain.add_block(block)
+# Verifies the block chain. Also verifies with a new block if provided
+chain.verify_chain(new_block=None)
+# Returns block by index
+chain.get_block(index)
+# Returns last block
+chain.get_last()
+# Returns last index
+chain.get_last_index()
+# Returns last hash value
+chain.get_last_hash()
+# Returns all transactions from the blocks in a list
+chain.fetch_all_tx()
+# Returns a copy of the block chain
+chain.copy()
+# Returns blockchain in bytes
+chain.serialize()
+# Returns blockchain in JSON format
+chain.json()
+# Returns chain's iterator
+iter(chain)
+# Returns the size of the chain
+len(chian)
+```
 ### Nodes
 Nodes holds a blockchian copy and responsible for: 
 * Serve chain's blocks and it's data (transactions).
