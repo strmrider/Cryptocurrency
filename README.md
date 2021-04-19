@@ -8,12 +8,12 @@ Cryptocurrency system, including complete Blockchain implementaion, nodes, miner
 * Digital wallets.
 
 ## Model
-The currency's system model is simmilar to other known currencies such as Bitcoin or Ethereum.
+The currency's system model is similar to other known currencies such as Bitcoin or Ethereum.
 The blockchian is composed of blocks, referenced by their hash value. Each block contains a block header and block data. 
 
-The block's data is a list of transactions. Each transaction composed by 1) transaction's general and authentication data 2) inputs- list of unspent outputs signed by their owner's private key 3) outputs- list of recipients addresses and amount of currency to be spent. The transaction and its data is digitly signed.
+The block's data is a list of transactions. Each transaction is composed of (1) transaction's general and authentication data (2) inputs- list of unspent outputs signed by their owner's private key (3) outputs- list of recipients addresses and amount of currency to be spent. The transaction and its data is digitly signed.
 
-Nodes are used to maintaine a blockhchain copy, track and serve it's data to users and verify new blocks. Miners are used to mine new block (using the proof work method) contiaing new verified transactions.
+Nodes are used to maintain a blockhchain copy, track and serve it's data to users and verify new blocks. Miners are used to mine new blocks (using the proof work method) containing new verified transactions.
 
 ## How it works
 ### Blockchain
@@ -23,7 +23,7 @@ from blockchain import BlockChain
 # creates new chain
 chain = BlockChain()
 ```
-Create initial transactions in order to use the blockchain. Use it with a completly new blockchain only since nodes will approve this new block for their own copy as there are no existed unspent outputs to support new transactions. Otherwise you will have to apply this action manually for all nodes.
+Create initial transactions in order to use the blockchain. Use it only with a completly new blockchain, since other nodes will not approve this new block for their own copy as there are no existed unspent outputs to support new transactions. Otherwise you will have to apply this action manually for all nodes.
 ```Python
 from miner import mine_initial_txs
 # list of tuples containing pairs of recipient address and amount
@@ -32,6 +32,58 @@ prev_hash = chain.get_blocks(-1).hash_block()
 mine_initial_txs(prev_hash, recipients)
 ```
 #### API
+While the system manages all the process automatically, users can use the API as they wish.
+* **``create_genesis()``**
+
+  Generates a Genesis Block
+
+* **``add_block(block)``**
+
+  Adds new block (Block instance) to the chain
+
+*  **``verify_chain(new_block=None)``**
+
+  Verifies the block chain. Also verifies with a new block if provided
+  
+*  **``get_block(index)``**
+ 
+  Returns block by index
+ 
+*  **``get_last()``**
+
+  Returns last block
+
+*  **``get_last_index()``**
+
+  Returns last index
+  
+*  **``get_last_hash()``**
+
+  Returns last hash value
+  
+*  **``fetch_all_tx()``**
+
+  Returns all transactions from the blocks in a list
+  
+*  **``copy()``**
+
+  Returns a copy of the block chain
+ 
+*  **``serialize()``**
+
+  Returns blockchain in bytes
+  
+*  **``json()``**
+
+  Returns blockchain in JSON format
+
+*  **``iter()``**
+
+  Returns chain's iterator
+ 
+*  **``len()``**
+
+  Returns the size of the chain
 ### Nodes
 Nodes holds a blockchian copy and responsible for: 
 * Serve chain's blocks and it's data (transactions).
