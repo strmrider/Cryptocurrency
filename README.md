@@ -59,7 +59,7 @@ chain.json()
 # Returns chain's iterator
 iter(chain)
 # Returns the size of the chain
-len(chian)
+len(chain)
 ```
 ### Nodes
 Nodes holds a blockchian copy and responsible for: 
@@ -82,6 +82,25 @@ node = Node(node_id, chain, peers)
 ip = '127.0.0.1'
 port = 64123
 node.run(ip, port)
+```
+#### API
+```Python
+# Returns blocks by their respective index
+node.get_blocks(indexes)
+# Returns unspent transaction outputs by their respective address
+node.get_utxo_by_address(addresses)
+# Validates given transactions
+node.validate_transactions(txs)
+# Validates block and its transactions
+node.validate_block(block)
+# Verifies and adds new block, then broadcasts it across the nodes network
+node.new_block(block)
+# Returns chain's length
+node.get_chain_len()
+# Serializes blockchain in bytes
+node.serialize_chain()
+# Returns chian in JSON format
+node.json_chain()
 ```
 ### Miners
 Miners receive and verify new transactions and mine new blocks using the PoW method.
