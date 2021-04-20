@@ -137,6 +137,11 @@ node_address = ('82.254.148.222', 64123)
 miner_address = ('175.171.218.10', 52132)
 
 wallet = Wallet(node_address, miner_address)
+# creates new address
+address = wallet.new_address()
+# Returns utxo for given addresses. If no addresses are provided, the method returns for all the addresses in the wallet
+unspent_txs = wallet.get_unspent()
+
 # create transaction
 # list of tuples containing pairs of recipient address and amount
 recipients = [('efdsf2', 1), ('das676df', 0.8), ('pmawq44', 0.2)]
@@ -144,9 +149,22 @@ recipients = [('efdsf2', 1), ('das676df', 0.8), ('pmawq44', 0.2)]
 # the method returns the new transaction in case no miner was provided
 wallet.create_transaction('eewr', recipients, 2, 0.01)
 
-# use wallet as a server and communicate it with a client, which provides the capability to use it from another 
-# machine/socket or a client written in any programming language other than python.
+# Fetch new transactions for given addresses from Node and adds it to history
+wallet.receive_transaction()
+```
+Use wallets as a server and communicate it with a client, which provides the capability to use it from another machine/socket or a client written in any programming language other than python.
+```Python
 wallet_server = WalletServer(wallet)
 wallet_server.start('127.0.0.1', 45174)
+```
+The protocol uses requests in JSON format and is composed of 'type' fields  and parameters fields (depends on the request).
+```Python
+# types
+UTXO # parameter is addresses list or None
+ADDRESSES # no parameters. returns key addresses
+NEW_TX # parameters are utxo's, recipient addresses and their amount
+RECEIVE # parameters are addresses or none to receive for all addresses
+WALLET_DETAILS # no parameters. Returns all wallet's details
+NEW_ADDRESS # no parameters. Returns new address from wallet
 ```
 ### Web client
